@@ -7,7 +7,7 @@ export default function Header() {
         <h1>Frontend CRUD</h1>
         <nav>
           <ul className="flex gap-x-5">
-            <Link href={"/blogs"}>Blogs</Link>
+            <Link href={"/"}>Blogs</Link>
             <Link href={"/users"}>Users</Link>
           </ul>
         </nav>

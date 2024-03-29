@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Button } from "./ui/button";
 import {
   Card,
@@ -15,7 +16,7 @@ import {
   PaginationNext,
 } from "./ui/pagination";
 
-interface IPost {
+export interface IPost {
   id: number;
   user_id: number;
   title: string;
@@ -62,7 +63,7 @@ export default async function PostList({ page = 1 }: IPostListProps) {
                     <p className="line-clamp-3">{post.body}</p>
                   </CardContent>
                   <CardFooter>
-                    <Button>See more</Button>
+                    <Link href={`blogs/${post.id}`}>See more</Link>
                   </CardFooter>
                 </Card>
               );
