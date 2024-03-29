@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Button } from "./ui/button";
 import {
   Card,
   CardContent,
@@ -63,7 +62,12 @@ export default async function PostList({ page = 1 }: IPostListProps) {
                     <p className="line-clamp-3">{post.body}</p>
                   </CardContent>
                   <CardFooter>
-                    <Link href={`blogs/${post.id}`}>See more</Link>
+                    <Link
+                      href={`blogs/${post.id}`}
+                      className="border bg-black text-sm text-white p-2 rounded-md"
+                    >
+                      See more
+                    </Link>
                   </CardFooter>
                 </Card>
               );
