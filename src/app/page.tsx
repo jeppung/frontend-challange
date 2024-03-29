@@ -1,6 +1,24 @@
 import Link from "next/link";
 
-export default function Home() {
+interface IPost {
+  id: number;
+  user_id: number;
+  title: string;
+  body: string;
+}
+
+export default async function Home() {
+  const getPosts = async () => {
+    const res = await fetch("https://gorest.co.in/public/v2/posts");
+
+    if (!res.ok) {
+      throw new Error("Failed to fetch data");
+    }
+
+    return (await res.json()) as IPost[];
+  };
+  const posts = await getPosts();
+
   return (
     <div>
       <div className="shadow p-4">
