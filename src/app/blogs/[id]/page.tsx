@@ -1,6 +1,4 @@
-import { Suspense } from "react";
 import { IPost } from "../../../components/PostList";
-import { ErrorBoundary } from "next/dist/client/components/error-boundary";
 import {
   Card,
   CardContent,
@@ -18,7 +16,7 @@ interface IComment {
   body: string;
 }
 
-interface IUser {
+export interface IUser {
   id: number;
   name: string;
   email: string;
