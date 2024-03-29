@@ -1,8 +1,6 @@
 "use client";
 import { useSearchParams } from "next/navigation";
 import PostList from "../components/PostList";
-import { headers } from "next/headers";
-import { useEffect } from "react";
 
 export default function Home() {
   const searchParam = useSearchParams();
