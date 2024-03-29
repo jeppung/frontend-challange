@@ -45,18 +45,21 @@ export default async function PostList({ page = 1 }: IPostListProps) {
   const posts = await getPosts();
 
   return (
-    <div>
+    <div className="">
       {posts.length > 0 ? (
         <>
-          <div className="grid grid-cols-2 gap-3 mt-5">
+          <p className="text-sm">
+            Page {page} of {totalPages}
+          </p>
+          <div className="grid grid-cols-2 gap-3 mt-3">
             {posts.map((post, i) => {
               return (
                 <Card key={i} className="mx-auto flex flex-col">
-                  <CardHeader className="h-24">
+                  <CardHeader>
                     <CardTitle className="line-clamp-2">{post.title}</CardTitle>
                   </CardHeader>
-                  <CardContent>
-                    <p className="line-clamp-2">{post.body}</p>
+                  <CardContent className="flex-1">
+                    <p className="line-clamp-3">{post.body}</p>
                   </CardContent>
                   <CardFooter>
                     <Button>See more</Button>
