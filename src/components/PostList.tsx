@@ -1,0 +1,117 @@
+import { Button } from "./ui/button";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "./ui/card";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationPrevious,
+  PaginationLink,
+  PaginationNext,
+} from "./ui/pagination";
+
+interface IPost {
+  id: number;
+  user_id: number;
+  title: string;
+  body: string;
+}
+
+interface IPostListProps {
+  page?: number;
+}
+
+export default async function PostList({ page = 1 }: IPostListProps) {
+  let totalPages;
+
+  const getPosts = async () => {
+    const res = await fetch(
+      `https://gorest.co.in/public/v2/posts?page=${page}&per_page=6`
+    );
+    if (!res.ok) {
+      throw new Error("Failed to fetch data");
+    }
+
+    totalPages = res.headers.get("x-pagination-pages");
+
+    return (await res.json()) as IPost[];
+  };
+
+  const posts = await getPosts();
+
+  return (
+    <div>
+      {posts.length > 0 ? (
+        <>
+          <div className="grid grid-cols-2 gap-3 mt-5">
+            {posts.map((post, i) => {
+              return (
+                <Card key={i} className="mx-auto flex flex-col">
+                  <CardHeader className="h-24">
+                    <CardTitle className="line-clamp-2">{post.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="line-clamp-2">{post.body}</p>
+                  </CardContent>
+                  <CardFooter>
+                    <Button>See more</Button>
+                  </CardFooter>
+                </Card>
+              );
+            })}
+          </div>
+
+          <Pagination className="mt-8">
+            <PaginationContent>
+              <PaginationItem className={`${page == 1 && "invisible"}`}>
+                <PaginationPrevious
+                  href={`http://localhost:3000/?page=${page - 1}`}
+                />
+              </PaginationItem>
+              <PaginationItem>
+                {page > 1 && (
+                  <>
+                    <PaginationLink
+                      href={`http://localhost:3000/?page=${page - 1}`}
+                    >
+                      {page - 1}
+                    </PaginationLink>
+                  </>
+                )}
+
+                <PaginationLink
+                  isActive
+                  href={`http://localhost:3000/?page=${page}`}
+                >
+                  {page}
+                </PaginationLink>
+
+                {page < totalPages! && (
+                  <PaginationLink
+                    href={`http://localhost:3000/?page=${page + 1}`}
+                  >
+                    {page + 1}
+                  </PaginationLink>
+                )}
+              </PaginationItem>
+              <PaginationItem
+                className={`${page == totalPages && "invisible"}`}
+              >
+                <PaginationNext
+                  href={`http://localhost:3000/?page=${page + 1}`}
+                />
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
+        </>
+      ) : (
+        <h1>No posts found</h1>
+      )}
+    </div>
+  );
+}

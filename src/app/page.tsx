@@ -1,36 +1,34 @@
-import Link from "next/link";
+"use client";
+import { useSearchParams } from "next/navigation";
+import PostList from "../components/PostList";
+import { headers } from "next/headers";
+import { useEffect } from "react";
 
-interface IPost {
+interface IUser {
   id: number;
-  user_id: number;
-  title: string;
-  body: string;
+  name: string;
+  email: string;
+  gender: string;
+  status: string;
 }
 
-export default async function Home() {
-  const getPosts = async () => {
-    const res = await fetch("https://gorest.co.in/public/v2/posts");
+export default function Home() {
+  const searchParam = useSearchParams();
+  const page = searchParam.get("page");
 
+  const getUsers = async () => {
+    const res = await fetch("https://gorest.co.in/public/v2/users");
     if (!res.ok) {
       throw new Error("Failed to fetch data");
     }
-
-    return (await res.json()) as IPost[];
+    return (await res.json()) as IUser[];
   };
-  const posts = await getPosts();
 
   return (
     <div>
-      <div className="shadow p-4">
-        <div className="container mx-auto flex justify-between">
-          <h1>Frontend CRUD</h1>
-          <nav>
-            <ul className="flex gap-x-5">
-              <Link href={""}>Blogs</Link>
-              <Link href={""}>Users</Link>
-            </ul>
-          </nav>
-        </div>
+      <div className="container mx-auto py-10">
+        <h1 className="text-xl font-semibold">Posts</h1>
+        <PostList page={page ? (parseInt(page) < 1 ? 1 : parseInt(page)) : 1} />
       </div>
     </div>
   );
