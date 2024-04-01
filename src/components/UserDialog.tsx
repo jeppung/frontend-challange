@@ -79,6 +79,7 @@ export function UserDialog({
             <Label>Name</Label>
             <Input
               type="text"
+              value={data.name}
               onChange={(e) => setData({ ...data, name: e.target.value })}
               required
             />
@@ -86,6 +87,7 @@ export function UserDialog({
           <div>
             <Label>Gender</Label>
             <Select
+              value={data.gender}
               onValueChange={(v) => setData({ ...data, gender: v })}
               required
             >
@@ -101,6 +103,7 @@ export function UserDialog({
           <div>
             <Label>Email</Label>
             <Input
+              value={data.email}
               type="email"
               onChange={(e) => setData({ ...data, email: e.target.value })}
               required
@@ -109,6 +112,7 @@ export function UserDialog({
           <div>
             <Label>Status</Label>
             <Select
+              value={data.status}
               onValueChange={(v) => setData({ ...data, status: v })}
               required
             >

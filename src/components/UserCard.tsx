@@ -13,19 +13,19 @@ import {
 } from "./ui/dialog";
 import { Button } from "./ui/button";
 import { DialogClose } from "@radix-ui/react-dialog";
-import { UserDialog } from "./UserDialog";
+import { ICreateUserRequest, UserDialog } from "./UserDialog";
 
 interface IUserCardProps {
   user: IUser;
   onDelete: () => void;
-  onEdit: () => void;
+  onUpdate: (data: ICreateUserRequest) => void;
 }
 
 interface IDeleteUserProps {
   onClick: () => void;
 }
 
-export default function UserCard({ user, onEdit, onDelete }: IUserCardProps) {
+export default function UserCard({ user, onDelete, onUpdate }: IUserCardProps) {
   let gender = user.gender.split("");
   gender[0] = gender[0].toUpperCase();
 
@@ -40,7 +40,8 @@ export default function UserCard({ user, onEdit, onDelete }: IUserCardProps) {
           <div className="flex items-center gap-5">
             <UserDialog
               title="Update user"
-              onSubmit={onEdit}
+              onSubmit={(data) => onUpdate(data)}
+              userData={user}
               Icon={<FiEdit className="hover:cursor-pointer" />}
             />
             <DeleteUser onClick={onDelete} />

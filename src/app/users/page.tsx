@@ -47,7 +47,6 @@ export default function UsersPage() {
   };
 
   const createUser = async (data: ICreateUserRequest) => {
-    console.log("test");
     const res = await fetch(`https://gorest.co.in/public/v2/users/`, {
       method: "POST",
       headers: {
@@ -70,6 +69,41 @@ export default function UsersPage() {
     setUsers([createdUser, ...users!]);
     toast({
       title: "User created successfully",
+      duration: 1000,
+    });
+  };
+
+  const updateUser = async (
+    data: ICreateUserRequest,
+    user: IUser,
+    index: number
+  ) => {
+    console.log(user.id);
+    const res = await fetch(`https://gorest.co.in/public/v2/users/${user.id}`, {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${process.env.API_TOKEN}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!res.ok) {
+      toast({
+        title: "User not updated",
+        duration: 1000,
+        variant: "destructive",
+      });
+    }
+
+    const updatedUser = (await res.json()) as IUser;
+
+    users![index] = updatedUser;
+
+    setUsers(users);
+
+    toast({
+      title: "User updated successfully",
       duration: 1000,
     });
   };
@@ -100,7 +134,9 @@ export default function UsersPage() {
             <UserCard
               key={i}
               user={u}
-              onEdit={() => {}}
+              onUpdate={async (data) => {
+                await updateUser(data, u, i);
+              }}
               onDelete={async () => {
                 await deleteUser(u);
               }}
