@@ -1,8 +1,6 @@
 import { useState } from "react";
-import { IUser } from "../app/blogs/[id]/page";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogFooter,
   DialogHeader,
@@ -19,13 +17,7 @@ import {
 } from "./ui/select";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
-
-export interface ICreateUserRequest {
-  name: string;
-  gender: string;
-  email: string;
-  status: string;
-}
+import { ICreateUserRequest, IUser } from "../model";
 
 interface ICreateUserProps {
   onSubmit: (data: ICreateUserRequest) => void;

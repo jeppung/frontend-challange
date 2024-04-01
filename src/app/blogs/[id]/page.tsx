@@ -1,4 +1,3 @@
-import { IPost } from "../../../components/PostList";
 import {
   Card,
   CardContent,
@@ -7,22 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "../../../components/ui/card";
-
-interface IComment {
-  id: number;
-  post_id: number;
-  name: string;
-  email: string;
-  body: string;
-}
-
-export interface IUser {
-  id: number;
-  name: string;
-  email: string;
-  gender: string;
-  status: string;
-}
+import { IComment, IPost, IUser } from "../../../model";
 
 export default async function BlogDetail({
   params: { id },
@@ -61,7 +45,7 @@ export default async function BlogDetail({
     return (await res.json()) as IUser;
   };
 
-  const res = await fetch(`https://gorest.co.in/public/v2/posts/${id}`);
+  await fetch(`https://gorest.co.in/public/v2/posts/${id}`);
   const post = await getPost();
   const comments = await getComments();
   const user = await getUser(post.user_id);

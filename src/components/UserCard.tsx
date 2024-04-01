@@ -1,7 +1,7 @@
 import { FiEdit } from "react-icons/fi";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { Card, CardHeader, CardTitle, CardDescription } from "./ui/card";
-import { IUser } from "../app/blogs/[id]/page";
+
 import {
   Dialog,
   DialogContent,
@@ -13,7 +13,8 @@ import {
 } from "./ui/dialog";
 import { Button } from "./ui/button";
 import { DialogClose } from "@radix-ui/react-dialog";
-import { ICreateUserRequest, UserDialog } from "./UserDialog";
+import { UserDialog } from "./UserDialog";
+import { ICreateUserRequest, IUser } from "../model";
 
 interface IUserCardProps {
   user: IUser;

@@ -14,13 +14,7 @@ import {
   PaginationLink,
   PaginationNext,
 } from "./ui/pagination";
-
-export interface IPost {
-  id: number;
-  user_id: number;
-  title: string;
-  body: string;
-}
+import { IPost } from "../model";
 
 interface IPostListProps {
   page?: number;

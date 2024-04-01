@@ -2,11 +2,12 @@
 
 import { useEffect, useState } from "react";
 import { Input } from "../../components/ui/input";
-import { IUser } from "../blogs/[id]/page";
+
 import UserCard from "../../components/UserCard";
 import { Toaster } from "../../components/ui/toaster";
 import { useToast } from "../../components/ui/use-toast";
-import { ICreateUserRequest, UserDialog } from "../../components/UserDialog";
+import { UserDialog } from "../../components/UserDialog";
+import { ICreateUserRequest, IUser } from "../../model";
 
 export default function UsersPage() {
   const [users, setUsers] = useState<IUser[]>();
