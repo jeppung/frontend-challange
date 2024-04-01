@@ -45,7 +45,7 @@ export default async function PostList({ page = 1 }: IPostListProps) {
           <p className="text-sm">
             Page {page} of {totalPages}
           </p>
-          <div className="grid grid-cols-2 gap-3 mt-3">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 mt-3">
             {posts.map((post, i) => {
               return (
                 <Card key={i} className="mx-auto flex flex-col">

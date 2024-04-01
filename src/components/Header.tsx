@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Header() {
   return (
-    <header className="shadow p-4">
+    <header className="shadow py-4">
       <div className="container mx-auto flex justify-between">
         <Link href={"/"}>Frontend CRUD</Link>
         <nav>

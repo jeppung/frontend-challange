@@ -36,8 +36,8 @@ export default function UserCard({ user, onDelete, onUpdate }: IUserCardProps) {
   return (
     <Card>
       <CardHeader>
-        <div className="flex justify-between">
-          <CardTitle>{user.name}</CardTitle>
+        <div className="flex justify-between gap-2">
+          <CardTitle className="line-clamp-1">{user.name}</CardTitle>
           <div className="flex items-center gap-5">
             <UserDialog
               title="Update user"

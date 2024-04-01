@@ -122,9 +122,9 @@ export default function UsersPage() {
   return (
     <div>
       <div className="container mx-auto py-10">
-        <div className="flex items-center justify-between ">
+        <div className="flex justify-between flex-col gap-2 lg:flex-row lg:item-center">
           <h1 className="text-xl font-semibold">Users</h1>
-          <div className="flex gap-5">
+          <div className="flex gap-x-5 gap-y-2 flex-col lg:flex-row">
             <Input
               onChange={(e) => {
                 setUsers(
@@ -133,7 +133,7 @@ export default function UsersPage() {
                   )
                 );
               }}
-              className="w-72"
+              className="lg:w-72"
               placeholder="Search..."
             />
             <UserDialog
@@ -146,7 +146,7 @@ export default function UsersPage() {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-3 mt-5">
+        <div className="grid lg:grid-cols-2 gap-3 mt-5">
           {users &&
             (users.length > 0 ? (
               users.map((u, i) => (

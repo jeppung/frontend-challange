@@ -52,7 +52,7 @@ export default async function BlogDetail({
 
   return (
     <div className="container py-10">
-      <Card className="w-3/4 mx-auto border p-4">
+      <Card className="lg:w-3/4 mx-auto border lg:p-4">
         <CardHeader>
           <CardTitle>{post.title}</CardTitle>
           <CardDescription>Author: {user.name}</CardDescription>
