@@ -4,7 +4,7 @@ export default function Header() {
   return (
     <header className="shadow p-4">
       <div className="container mx-auto flex justify-between">
-        <h1>Frontend CRUD</h1>
+        <Link href={"/"}>Frontend CRUD</Link>
         <nav>
           <ul className="flex gap-x-5">
             <Link href={"/"}>Blogs</Link>
