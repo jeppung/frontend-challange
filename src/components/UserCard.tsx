@@ -1,0 +1,76 @@
+import { FiEdit } from "react-icons/fi";
+import { RiDeleteBin6Line } from "react-icons/ri";
+import { Card, CardHeader, CardTitle, CardDescription } from "./ui/card";
+import { IUser } from "../app/blogs/[id]/page";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "./ui/dialog";
+import { Button } from "./ui/button";
+import { DialogClose } from "@radix-ui/react-dialog";
+import { UserDialog } from "./UserDialog";
+
+interface IUserCardProps {
+  user: IUser;
+  onDelete: () => void;
+  onEdit: () => void;
+}
+
+interface IDeleteUserProps {
+  onClick: () => void;
+}
+
+export default function UserCard({ user, onEdit, onDelete }: IUserCardProps) {
+  let gender = user.gender.split("");
+  gender[0] = gender[0].toUpperCase();
+
+  const status = user.status.split("");
+  status[0] = status[0].toUpperCase();
+
+  return (
+    <Card>
+      <CardHeader>
+        <div className="flex justify-between">
+          <CardTitle>{user.name}</CardTitle>
+          <div className="flex items-center gap-5">
+            <UserDialog
+              title="Update user"
+              onSubmit={onEdit}
+              Icon={<FiEdit className="hover:cursor-pointer" />}
+            />
+            <DeleteUser onClick={onDelete} />
+          </div>
+        </div>
+        <CardDescription>
+          {gender.join("")} | {user.email} | {status.join("")}
+        </CardDescription>
+      </CardHeader>
+    </Card>
+  );
+}
+
+function DeleteUser({ onClick }: IDeleteUserProps) {
+  return (
+    <Dialog>
+      <DialogTrigger>
+        <RiDeleteBin6Line className="hover:cursor-pointer" />
+      </DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Are you sure want to delete this user?</DialogTitle>
+          <DialogDescription>This action cant be undo</DialogDescription>
+        </DialogHeader>
+        <DialogFooter>
+          <DialogClose>
+            <Button onClick={onClick}>Yes</Button>
+          </DialogClose>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+}
