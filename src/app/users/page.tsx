@@ -10,7 +10,7 @@ import { ICreateUserRequest, UserDialog } from "../../components/UserDialog";
 
 export default function UsersPage() {
   const [users, setUsers] = useState<IUser[]>();
-
+  const [baseUsers, setBaseUsers] = useState<IUser[]>();
   const { toast } = useToast();
 
   const getUsers = async () => {
@@ -20,7 +20,9 @@ export default function UsersPage() {
       throw new Error("Error get users");
     }
 
-    setUsers((await res.json()) as IUser[]);
+    let data = (await res.json()) as IUser[];
+    setUsers(data);
+    setBaseUsers(data);
   };
 
   const deleteUser = async (user: IUser) => {
@@ -118,7 +120,17 @@ export default function UsersPage() {
         <div className="flex items-center justify-between ">
           <h1 className="text-xl font-semibold">Users</h1>
           <div className="flex gap-5">
-            <Input className="w-72" placeholder="Search..." />
+            <Input
+              onChange={(e) => {
+                setUsers(
+                  baseUsers!.filter((u) =>
+                    u.name.toLowerCase().includes(e.target.value.toLowerCase())
+                  )
+                );
+              }}
+              className="w-72"
+              placeholder="Search..."
+            />
             <UserDialog
               useButton={true}
               title="Create user"
@@ -130,18 +142,23 @@ export default function UsersPage() {
         </div>
 
         <div className="grid grid-cols-2 gap-3 mt-5">
-          {users?.map((u, i) => (
-            <UserCard
-              key={i}
-              user={u}
-              onUpdate={async (data) => {
-                await updateUser(data, u, i);
-              }}
-              onDelete={async () => {
-                await deleteUser(u);
-              }}
-            />
-          ))}
+          {users &&
+            (users.length > 0 ? (
+              users.map((u, i) => (
+                <UserCard
+                  key={i}
+                  user={u}
+                  onUpdate={async (data) => {
+                    await updateUser(data, u, i);
+                  }}
+                  onDelete={async () => {
+                    await deleteUser(u);
+                  }}
+                />
+              ))
+            ) : (
+              <h1>No users found</h1>
+            ))}
         </div>
       </div>
       <Toaster />
