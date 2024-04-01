@@ -42,6 +42,8 @@ export default function UsersPage() {
     }
 
     setUsers(users!.filter((u) => u.id !== user.id));
+    setBaseUsers(users!.filter((u) => u.id !== user.id));
+
     toast({
       title: "User delete successfully",
       duration: 1000,
@@ -69,6 +71,8 @@ export default function UsersPage() {
     const createdUser = (await res.json()) as IUser;
 
     setUsers([createdUser, ...users!]);
+    setBaseUsers([createdUser, ...users!]);
+
     toast({
       title: "User created successfully",
       duration: 1000,
@@ -80,7 +84,6 @@ export default function UsersPage() {
     user: IUser,
     index: number
   ) => {
-    console.log(user.id);
     const res = await fetch(`https://gorest.co.in/public/v2/users/${user.id}`, {
       method: "PUT",
       headers: {
@@ -103,6 +106,7 @@ export default function UsersPage() {
     users![index] = updatedUser;
 
     setUsers(users);
+    setBaseUsers(users);
 
     toast({
       title: "User updated successfully",
@@ -146,7 +150,7 @@ export default function UsersPage() {
             (users.length > 0 ? (
               users.map((u, i) => (
                 <UserCard
-                  key={i}
+                  key={u.id}
                   user={u}
                   onUpdate={async (data) => {
                     await updateUser(data, u, i);
